@@ -1,0 +1,1 @@
+/Users/siwarrie/.bash_profile
