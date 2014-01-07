@@ -68,14 +68,35 @@ function setup_git_prompt
     export PROMPT_COMMAND='__git_ps1 "\[$(tput bold)\]\[$(tput setaf 2)\]\u@\h: \w\[$(tput sgr0)\]" "\\\$ ";'
 }
 
+_complete_ssh_hosts ()
+{
+        COMPREPLY=()
+        cur="${COMP_WORDS[COMP_CWORD]}"
+        comp_ssh_hosts=`cat ~/.ssh/known_hosts | \
+                        cut -f 1 -d ' ' | \
+                        sed -e s/,.*//g | \
+                        grep -v ^# | \
+                        uniq | \
+                        grep -v "\[" ;
+                cat ~/.ssh/config | \
+                        grep "^Host " | \
+                        awk '{print $2}'
+                `
+        COMPREPLY=( $(compgen -W "${comp_ssh_hosts}" -- $cur))
+        return 0
+}
+
 set_aliases
 improve_history
 setup_git
 setup_gitconfig
 setup_git_prompt
+complete -F _complete_ssh_hosts ssh
 
-export PATH=/Applications/Postgres.app/Contents/MacOS/bin/:/usr/local/heroku/bin:/usr/local/bin/:/usr/local/sbin/:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin
+export PATH=/Applications/Postgres.app/Contents/MacOS/bin:/usr/local/heroku/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin
 
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
-
-
+#THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
+[[ -s "/Users/siwarrie/.gvm/bin/gvm-init.sh" ]] && source "/Users/siwarrie/.gvm/bin/gvm-init.sh"
