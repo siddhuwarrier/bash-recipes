@@ -98,5 +98,11 @@ export PATH=/Applications/Postgres.app/Contents/MacOS/bin:/usr/local/heroku/bin:
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
+BASH_COMPLETION_DIR=~/.bash_completion.d
+#Create directory ~/.bash_completion.d if it doesn't exist to avoid find grumbling
+mkdir -p ${BASH_COMPLETION_DIR}
+#Source all exec files in ~/.bash_completion.d
+eval $(find -L ${BASH_COMPLETION_DIR} -maxdepth 1 -type f -exec echo . \'{}\'';' \;)
+
 #THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
 [[ -s "/Users/siwarrie/.gvm/bin/gvm-init.sh" ]] && source "/Users/siwarrie/.gvm/bin/gvm-init.sh"
