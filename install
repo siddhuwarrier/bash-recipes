@@ -2,4 +2,6 @@
 
 PWD=`pwd`
 touch ~/.bash_profile
-sed -i ‘1i source $PWD/bash_functions.sh’ ~/.bash_profile
+echo "source $PWD/bash_functions.sh" | cat - ~/.bash_profile > /tmp/tempfile && mv /tmp/tempfile ~/.bash_profile
+source ~/.bash_profile
+rm $0
