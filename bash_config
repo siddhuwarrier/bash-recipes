@@ -43,12 +43,12 @@ function setup_git
 {
     # Git tab completion
     if [ ! -f ~/.git-completion.bash ]; then
-         curl https://raw.github.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
+         curl -L https://raw.github.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
     fi
     source ~/.git-completion.bash
     # Git prompt
     if [ ! -f ~/.git-prompt.sh ]; then
-         curl https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh -o ~/.git-prompt.sh 
+         curl -L https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh -o ~/.git-prompt.sh 
     fi
     GIT_PS1_SHOWUPSTREAM="verbose"
     GIT_PS1_SHOWCOLORHINTS="yes"
@@ -60,7 +60,12 @@ function setup_gitconfig
 {
     git config --global user.name "Siddhu Warrier"
     git config --global user.email "siwarrie@cisco.com"
-    git config --global core.editor /usr/bin/vim
+    git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+    git config --global alias.co "checkout"
+    git config --global alias.ci "commit"
+    git config --global alias.st "status"
+    git config --global alias.unstage "reset HEAD --"
+    git config --global alias.last "log -1 HEAD"
 }
 
 function setup_git_prompt
@@ -93,16 +98,7 @@ setup_gitconfig
 setup_git_prompt
 complete -F _complete_ssh_hosts ssh
 
-export PATH=/Applications/Postgres.app/Contents/MacOS/bin:/usr/local/heroku/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin
+#Use the up and down cursor keys for recursive completion
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
 
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
-BASH_COMPLETION_DIR=~/.bash_completion.d
-#Create directory ~/.bash_completion.d if it doesn't exist to avoid find grumbling
-mkdir -p ${BASH_COMPLETION_DIR}
-#Source all exec files in ~/.bash_completion.d
-eval $(find -L ${BASH_COMPLETION_DIR} -maxdepth 1 -type f -exec echo . \'{}\'';' \;)
-
-#THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
-[[ -s "/Users/siwarrie/.gvm/bin/gvm-init.sh" ]] && source "/Users/siwarrie/.gvm/bin/gvm-init.sh"

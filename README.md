@@ -1,16 +1,12 @@
+A bunch of Bash functions I really like.
+
 # Setup instructions
 
-* Copy ``bash_profile`` over to your home directory
-* Execute ``setup_vim.sh`` to get a pretty Vim
+Clone the repository
 
-## Bonus: Openstack
+	git@github.com:siddhuwarrier/bash-recipes.git ~/.bash
 
-* Create a symbolic link from the ``openstack`` directory to ``.bash_completion.d``
+Run the install command
 
-		ln -s ~/Documents/workspace/misc/bash-recipes/openstack/ ~/.bash_completion.d
-
-
-Note: Openstack completion files from [Github](https://github.com/asdil12/openstack-autocomplete)
-
-
+	~/.bash/install
 

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+PWD=`pwd`
+touch ~/.bash_profile
+sed -i ‘1i source $PWD/bash_functions.sh’ ~/.bash_profile
