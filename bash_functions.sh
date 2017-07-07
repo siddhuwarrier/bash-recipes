@@ -66,6 +66,7 @@ function setup_gitconfig
     git config --global alias.st "status"
     git config --global alias.unstage "reset HEAD --"
     git config --global alias.last "log -1 HEAD"
+    git config --global core.editor /usr/bin/vim
 }
 
 function setup_git_prompt
